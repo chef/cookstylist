@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
 # load the libs
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "..", "lib"))
 
-require 'cookstylist'
+require "cookstylist"
 
 Cookstylist.run
