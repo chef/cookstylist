@@ -10,8 +10,8 @@ module Cookstylist
 
     def initialize
       @connection = gh_connection
-      @options = {accept: Octokit::Preview::PREVIEW_TYPES[:integrations]}
-     # set_default_token
+      @options = { accept: Octokit::Preview::PREVIEW_TYPES[:integrations] }
+      # set_default_token
     end
 
     def gh_connection
