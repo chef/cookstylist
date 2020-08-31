@@ -27,6 +27,17 @@ module Cookstylist
     end
 
     #
+    # Create a fresh connection using a new JWT since they can only be used once per installation
+    # and then set the installation token from app ID
+    #
+    # @return [void]
+    #
+    def reset_connection(install_id)
+      @connection = gh_connection
+      @connection.access_token = @connection.create_app_installation_access_token(install_id).token
+    end
+
+    #
     # Generate a JSON Web Token from the app private key located at cookstyle.pem
     #
     # @return [String] JSON Web Token
@@ -50,20 +61,6 @@ module Cookstylist
       token = JWT.encode(payload, private_key, "RS256")
       Cookstylist::Log.info("JWT token generated: #{token}")
       token
-    end
-
-    # use the token for the first app installation
-    # as we grab data set the install token each time, but this gives us a working
-    # connection object
-    #
-    # @return [void]
-    #
-    def set_default_token
-      install_ids = @connection.find_app_installations(@options).collect { |x| x["id"] }
-
-      token = install_ids.collect { |x| @connection.create_app_installation_access_token(x, @options).token }.first
-
-      @connection.access_token = token
     end
 
     #
