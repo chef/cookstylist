@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.add_dependency "git", "~> 1.7"
   s.add_dependency "mixlib-log", "~> 3.0"
   s.add_dependency "mixlib-shellout", "~> 3.1"
+  s.add_dependency "cookstyle"
 
   s.files         = `git ls-files -z`.split("\x0")
   s.executables   = "bin/cookstylist"
