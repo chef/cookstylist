@@ -10,7 +10,6 @@ module Cookstylist
       @gh_conn = Cookstylist::Github.instance.connection
 
       @repos = repos
-
     end
 
     #
