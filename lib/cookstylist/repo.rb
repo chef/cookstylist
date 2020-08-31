@@ -3,11 +3,12 @@ module Cookstylist
     require "git"
     require "fileutils"
 
-    attr_reader :name
+    attr_reader :name, :local_path
 
     def initialize(metadata)
       @name = metadata[:full_name]
       @metadata = metadata
+      @local_path = ::File.join(Dir.tmpdir, @name.gsub(/[^0-9A-Z]/i, "_"))
       @gh_conn = Cookstylist::Github.instance.connection
     end
 
@@ -40,14 +41,13 @@ module Cookstylist
     def clone
       uri = "https://#{@gh_conn.access_token}@github.com/#{@name}"
       local_dir = @name.gsub(/[^0-9A-Z]/i, "_")
-      full_tmp_path = File.join(Dir.tmpdir, local_dir)
 
       # delete any existing checked out repos
-      FileUtils.rm_rf(full_tmp_path)
+      FileUtils.rm_rf(@local_path)
 
       Git.clone(uri, local_dir, { path: Dir.tmpdir })
 
-      full_tmp_path
+      @local_path
     end
 
     #
