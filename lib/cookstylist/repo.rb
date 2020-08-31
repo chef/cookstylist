@@ -1,5 +1,7 @@
 module Cookstylist
   class Repo
+    require "git"
+
     attr_reader :name
 
     def initialize(metadata)
@@ -21,7 +23,11 @@ module Cookstylist
     end
 
     def clone
+      uri = "https://#{@gh_conn.access_token}@github.com/#{@name}"
+      local_dir = @name.gsub(/[^0-9A-Z]/i, '_')
+      Git.clone(uri, local_dir, {path: Dir.tmpdir})
 
+      File.join(Dir.tmpdir, local_dir)
     end
 
     def cookstyle_branch_exists?
