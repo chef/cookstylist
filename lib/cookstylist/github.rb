@@ -1,13 +1,17 @@
 require "octokit"
 require "faraday-http-cache"
+require "singleton"
 
 module Cookstylist
   class Github
+    include Singleton
+
     attr_reader :connection
 
     def initialize
       @connection = gh_connection
-      set_default_token
+      @options = {accept: Octokit::Preview::PREVIEW_TYPES[:integrations]}
+     # set_default_token
     end
 
     def gh_connection
@@ -55,9 +59,9 @@ module Cookstylist
     # @return [void]
     #
     def set_default_token
-      install_ids = @connection.find_app_installations.collect { |x| x["id"] }
+      install_ids = @connection.find_app_installations(@options).collect { |x| x["id"] }
 
-      token = install_ids.collect { |x| @connection.create_app_installation_access_token(x).token }.first
+      token = install_ids.collect { |x| @connection.create_app_installation_access_token(x, @options).token }.first
 
       @connection.access_token = token
     end
@@ -66,7 +70,7 @@ module Cookstylist
     # @return [Array] installation IDs of orgs with the app installed
     #
     def installation_ids
-      @connection.find_app_installations.collect { |x| x["id"] }
+      @connection.find_app_installations(@options).collect { |x| x["id"] }
     end
   end
 end
