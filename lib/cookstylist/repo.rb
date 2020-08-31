@@ -2,8 +2,18 @@ module Cookstylist
   class Repo
     attr_reader :name
 
-    def initialize(name)
-      @name = name
+    def initialize(metadata)
+      @name = metadata[:full_name]
+      @metadata = metadata
+      @gh_conn = Cookstylist::Github.instance.connection
+    end
+
+    def fork?
+      @metadata[:fork]
+    end
+
+    def looks_like_cookbook?
+      @gh_conn.contents(@name).any?{|x| x["name"] == 'metadata.rb' }
     end
 
     def clone
