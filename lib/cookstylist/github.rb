@@ -11,7 +11,7 @@ module Cookstylist
     end
 
     def gh_connection
-      conn = Octokit::Client.new(bearer_token: jwt_token)
+      conn = Octokit::Client.new(bearer_token: json_web_token)
       conn.auto_paginate = true
       conn.middleware = Faraday::RackBuilder.new do |builder|
         builder.use Faraday::HttpCache
@@ -22,7 +22,12 @@ module Cookstylist
       conn
     end
 
-    def jwt_token
+    #
+    # Generate a JSON Web Token from the app private key located at cookstyle.pem
+    #
+    # @return [String] JSON Web Token
+    #
+    def json_web_token
       require "openssl"
       require "jwt"
 
@@ -46,12 +51,22 @@ module Cookstylist
     # use the token for the first app installation
     # as we grab data set the install token each time, but this gives us a working
     # connection object
+    #
+    # @return [void]
+    #
     def set_default_token
       install_ids = @connection.find_app_installations.collect { |x| x["id"] }
 
       token = install_ids.collect { |x| @connection.create_app_installation_access_token(x).token }.first
 
       @connection.access_token = token
+    end
+
+    #
+    # @return [Array] installation IDs of orgs with the app installed
+    #
+    def installation_ids
+      @connection.find_app_installations.collect { |x| x["id"] }
     end
   end
 end
