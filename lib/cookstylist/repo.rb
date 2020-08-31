@@ -1,6 +1,7 @@
 module Cookstylist
   class Repo
     require "git"
+    require 'fileutils'
 
     attr_reader :name
 
@@ -25,9 +26,14 @@ module Cookstylist
     def clone
       uri = "https://#{@gh_conn.access_token}@github.com/#{@name}"
       local_dir = @name.gsub(/[^0-9A-Z]/i, '_')
+      full_tmp_path = File.join(Dir.tmpdir, local_dir)
+
+      # delete any existing checked out repos
+      FileUtils.rm_rf(full_tmp_path)
+
       Git.clone(uri, local_dir, {path: Dir.tmpdir})
 
-      File.join(Dir.tmpdir, local_dir)
+      full_tmp_path
     end
 
     def cookstyle_branch_exists?
