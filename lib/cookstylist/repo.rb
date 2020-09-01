@@ -11,7 +11,6 @@ module Cookstylist
       @local_path = ::File.join(Dir.tmpdir, @name.gsub(/[^0-9A-Z]/i, "_"))
       @git_repo = nil
       @gh_conn = Cookstylist::Github.instance.connection
-      require 'pry'; binding.pry
     end
 
     #
