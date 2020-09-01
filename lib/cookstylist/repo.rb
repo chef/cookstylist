@@ -64,7 +64,7 @@ module Cookstylist
     # @return [void]
     #
     def checkout_cookstyle_branch
-      @git_repo.branch('cookstyle').checkout
+      @git_repo.branch("cookstyle").checkout
     end
 
     #

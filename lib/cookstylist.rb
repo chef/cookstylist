@@ -26,15 +26,10 @@ module Cookstylist
         corrector.run
         puts "#{corrector.summary["offense_count"]} offenses!"
 
-        # print a summary
-        results = corrector.results_by_cop
-        results.each do |cop, offenses|
-          files = offenses.filter_map { |x| x["file_path"] if x["corrected"] }
-          next if files.empty?
+        next unless repo.dirty?
 
-          puts cop
-          files.each { |x| puts "  - #{x}" }
-        end
+        puts "  Opening pull request to upstream"
+        Cookstylist::Pullrequest.new(repo, corrector).open
       end
     end
   end
