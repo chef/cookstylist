@@ -4,6 +4,7 @@ module Cookstylist
   require_relative "cookstylist/installation"
   require_relative "cookstylist/repo"
   require_relative "cookstylist/corrector"
+  require_relative "cookstylist/pullrequest"
 
   def self::run
     installations = Cookstylist::Github.instance.installation_ids
