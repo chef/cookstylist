@@ -40,7 +40,7 @@ module Cookstylist
     # @return [String] The path of the local checkout
     #
     def clone
-      uri = "https://#{@gh_conn.access_token}@github.com/#{@name}"
+      uri = "https://cookstyle:#{@gh_conn.access_token}@github.com/#{@name}"
       local_dir = @name.gsub(/[^0-9A-Z]/i, "_")
 
       # delete any existing checked out repos
