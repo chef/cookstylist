@@ -3,11 +3,18 @@ module Cookstylist
     require "mixlib/shellout"
     require "json"
 
-    attr_reader :results
+    attr_reader :results, :release
 
     def initialize(path)
       @path = path
       @results = nil
+      @release = cookstyle_release
+    end
+
+    def cookstyle_release
+      cmd = Mixlib::ShellOut.new("cookstyle -v")
+      cmd.run_command
+      cmd.stdout.match(/Cookstyle (.*)$/)[1]
     end
 
     #
