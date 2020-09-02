@@ -22,6 +22,11 @@ module Cookstylist
         puts "  Cloned to #{repo.clone}"
 
         print "  Running Cookstyle against the local repo: "
+
+        # if there's already a branch pushed up for this release of cookstyle then
+        # we've already run for this version and we can skip to the next repo
+        next if repo.cookstyle_branch_exists?
+
         repo.checkout_cookstyle_branch
         corrector = Cookstylist::Corrector.new(repo.local_path)
         corrector.run
