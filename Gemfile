@@ -11,5 +11,6 @@ group :debug do
 end
 
 group :development do
-  gem "chefstyle"
+  gem "cookstyle", git: "https://github.com/chef/cookstyle.git", branch: "master"
+  gem "chefstyle", git: "https://github.com/chef/chefstyle.git", branch: "master"
 end
