@@ -9,7 +9,7 @@ module Cookstylist
       Cookstylist::Github.instance.reset_connection(@id)
       @gh_conn = Cookstylist::Github.instance.connection
 
-      @repos = repos
+      @repos = authorized_repos
     end
 
     #
@@ -17,7 +17,7 @@ module Cookstylist
     #
     # @return [Array]
     #
-    def repos
+    def authorized_repos
       @gh_conn.list_installation_repos["repositories"].select { |x| x["language"] == "Ruby" }
     end
   end
