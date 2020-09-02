@@ -65,7 +65,7 @@ module Cookstylist
     # @return [Boolean] Does a branch named 'cookstyle_bot/cookstyle_X_Y_Z' already exist?
     #
     def cookstyle_branch_exists?
-      !!@git_repo.branches[cookstyle_branch_name]
+      !!@git_repo.branches["origin/#{cookstyle_branch_name}"]
     end
 
     #
