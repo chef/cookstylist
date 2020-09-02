@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.description = s.summary
   s.authors     = ["Tim Smith"]
   s.email       = "tsmith@chef.io"
-  s.homepage    = "http://www.github.com/tas50/cookstylist"
+  s.homepage    = "http://www.github.com/chef/cookstylist"
   s.license     = "Apache-2.0"
 
   s.required_ruby_version = ">= 2.7"
@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.add_dependency "git", "~> 1.7"
   s.add_dependency "mixlib-log", "~> 3.0"
   s.add_dependency "mixlib-shellout", "~> 3.1"
-  s.add_dependency "cookstyle"
+  s.add_dependency "cookstyle", ">= 6.16"
 
   s.files         = `git ls-files -z`.split("\x0")
   s.executables   = "bin/cookstylist"
