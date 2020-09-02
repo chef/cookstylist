@@ -11,7 +11,7 @@ module Cookstylist
     def open
       commit_changes
 
-      @gh_conn.create_pull_request(@repo.name, @repo.default_branch, "cookstyle", commit_title, commit_description)
+      @gh_conn.create_pull_request(@repo.name, @repo.default_branch, @repo.cookstyle_branch_name, commit_title, commit_description)
     end
 
     def commit_changes
@@ -20,7 +20,7 @@ module Cookstylist
       r.config("user.email", "cookbooks@chef.io")
 
       r.commit_all("#{commit_title}\n#{commit_description}")
-      r.push('origin','cookstyle')
+      r.push("origin", @repo.cookstyle_branch_name)
     end
 
     def commit_title

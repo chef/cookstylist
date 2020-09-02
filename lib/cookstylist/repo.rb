@@ -52,10 +52,20 @@ module Cookstylist
     end
 
     #
-    # @return [Boolean] Does a branch named 'cookstyle' already exist?
+    # @return [String] The cookstyle versioned branch name
+    #
+    def cookstyle_branch_name
+      @branch_name ||= begin
+        require 'cookstyle'
+        "cookstyle_bot/cookstyle_" + Cookstyle::VERSION.gsub(".", "_")
+      end
+    end
+
+    #
+    # @return [Boolean] Does a branch named 'cookstyle_bot/cookstyle_X_Y_Z' already exist?
     #
     def cookstyle_branch_exists?
-      !!@git_repo.branches[:cookstyle]
+      !!@git_repo.branches[cookstyle_branch_name]
     end
 
     #
@@ -64,7 +74,7 @@ module Cookstylist
     # @return [void]
     #
     def checkout_cookstyle_branch
-      @git_repo.branch("cookstyle").checkout
+      @git_repo.branch(cookstyle_branch_name).checkout
     end
 
     #
