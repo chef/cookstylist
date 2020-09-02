@@ -1,6 +1,6 @@
 require "octokit"
 require "faraday-http-cache"
-require "singleton"
+require "singleton" unless defined?(Singleton)
 
 module Cookstylist
   class Github
@@ -42,7 +42,7 @@ module Cookstylist
     # @return [String] JSON Web Token
     #
     def json_web_token
-      require "openssl"
+      require "openssl" unless defined?(OpenSSL)
       require "jwt"
 
       private_key = OpenSSL::PKey::RSA.new(File.read("cookstyle.pem"))

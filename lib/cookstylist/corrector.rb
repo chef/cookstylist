@@ -1,7 +1,7 @@
 module Cookstylist
   class Corrector
-    require "mixlib/shellout"
-    require "json"
+    require "mixlib/shellout" unless defined?(Mixlib::ShellOut)
+    require "json" unless defined?(JSON)
     require "cookstyle/version"
 
     attr_reader :results, :release
@@ -13,7 +13,7 @@ module Cookstylist
     end
 
     def cookstyle_release
-      Cookstyle::VERSION.gsub('.', '_')
+      Cookstyle::VERSION.gsub(".", "_")
     end
 
     #

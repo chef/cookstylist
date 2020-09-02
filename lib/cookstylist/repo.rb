@@ -1,7 +1,7 @@
 module Cookstylist
   class Repo
     require "git"
-    require "fileutils"
+    require "fileutils" unless defined?(FileUtils)
 
     attr_reader :name, :local_path, :git_repo
 
@@ -56,7 +56,7 @@ module Cookstylist
     #
     def cookstyle_branch_name
       @branch_name ||= begin
-        require 'cookstyle'
+        require "cookstyle"
         "cookstyle_bot/cookstyle_" + Cookstyle::VERSION.gsub(".", "_")
       end
     end
