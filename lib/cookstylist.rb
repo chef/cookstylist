@@ -22,6 +22,7 @@ module Cookstylist
         puts "  Cloned to #{repo.clone}"
 
         print "  Running Cookstyle against the local repo: "
+        repo.checkout_cookstyle_branch
         corrector = Cookstylist::Corrector.new(repo.local_path)
         corrector.run
         puts "#{corrector.summary["offense_count"]} offenses!"

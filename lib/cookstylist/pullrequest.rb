@@ -15,8 +15,6 @@ module Cookstylist
     end
 
     def commit_changes
-      @repo.checkout_cookstyle_branch
-
       r = Git.open(@repo.local_path)
       r.config("user.name", "Cookstyle Bot")
       r.config("user.email", "cookbooks@chef.io")
