@@ -11,7 +11,11 @@ module Cookstylist
     def open
       commit_changes
 
-      @gh_conn.create_pull_request(@repo.name, @repo.default_branch, @repo.cookstyle_branch_name, commit_title, commit_description)
+      if Config[:whyrun]
+        Log.info "  Would create pull request in repo: #{@repo.name} using branch #{@repo.cookstyle_branch_name} if not in whyrun mode"
+      else
+        @gh_conn.create_pull_request(@repo.name, @repo.default_branch, @repo.cookstyle_branch_name, commit_title, commit_description)
+      end
     end
 
     def commit_changes
@@ -20,7 +24,12 @@ module Cookstylist
       r.config("user.email", "cookbooks@chef.io")
 
       r.commit_all("#{commit_title}\n#{commit_description}")
-      r.push("origin", @repo.cookstyle_branch_name)
+
+      if Config[:whyrun]
+        Log.info "  Would push branch #{@repo.cookstyle_branch_name} to the remote if not in whyrun mode"
+      else
+        r.push("origin", @repo.cookstyle_branch_name)
+      end
     end
 
     def commit_title
