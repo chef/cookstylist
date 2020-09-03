@@ -36,6 +36,8 @@ module Cookstylist
       Config.merge!(config)
       Log.level = Config[:log_level]
 
+      Log.info "Starting Cookstylist..."
+
       installations = Cookstylist::Github.instance.installation_ids
 
       installations.each do |id|
@@ -50,7 +52,7 @@ module Cookstylist
 
           Log.info "  Cloned to #{repo.clone}"
 
-          Log.info "  Running Cookstyle against the local repo: "
+          Log.info "  Running Cookstyle against the local repo"
 
           # if there's already a branch pushed up for this release of cookstyle then
           # we've already run for this version and we can skip to the next repo

@@ -58,7 +58,7 @@ module Cookstylist
       }
 
       token = JWT.encode(payload, private_key, "RS256")
-      Cookstylist::Log.info("JWT token generated: #{token}")
+      Log.debug("JWT token generated: #{token}")
       token
     end
 
