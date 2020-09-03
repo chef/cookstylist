@@ -48,7 +48,7 @@ module Cookstylist
         commit_msg << "#{cop_name}\n#{file_descriptions.join("\n")}\n" unless file_descriptions.empty?
       end
 
-      commit_msg << "\nSigned-off-by: Cookstye <cookbooks@chef.io>"
+      commit_msg << "\nSigned-off-by: Cookstyle <cookbooks@chef.io>"
 
       commit_msg
     end
