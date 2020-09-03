@@ -43,14 +43,14 @@ module Cookstylist
 
         installation.repos.each do |repo_data|
           repo = Cookstylist::Repo.new(repo_data)
-          puts "#{repo_data[:full_name]}:"
-          puts "  looks_like_cookbook?: #{repo.looks_like_cookbook?}"
-          puts "  fork?: #{repo.fork?}"
+          Log.info "#{repo_data[:full_name]}:"
+          Log.info "  looks_like_cookbook?: #{repo.looks_like_cookbook?}"
+          Log.info "  fork?: #{repo.fork?}"
           next unless !repo.fork? && repo.looks_like_cookbook?
 
-          puts "  Cloned to #{repo.clone}"
+          Log.info "  Cloned to #{repo.clone}"
 
-          print "  Running Cookstyle against the local repo: "
+          Log.info "  Running Cookstyle against the local repo: "
 
           # if there's already a branch pushed up for this release of cookstyle then
           # we've already run for this version and we can skip to the next repo
@@ -59,11 +59,11 @@ module Cookstylist
           repo.checkout_cookstyle_branch
           corrector = Cookstylist::Corrector.new(repo.local_path)
           corrector.run
-          puts "#{corrector.summary["offense_count"]} offenses!"
+          Log.info "  #{corrector.summary["offense_count"]} offenses detected!"
 
           next unless repo.dirty?
 
-          puts "  Opening pull request to upstream"
+          Log.info "  Opening pull request to upstream"
           Cookstylist::Pullrequest.new(repo, corrector).open
         end
       end
