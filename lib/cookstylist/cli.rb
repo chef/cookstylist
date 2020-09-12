@@ -48,7 +48,7 @@ module Cookstylist
           Log.info "#{repo_data[:full_name]}:"
           Log.info "  looks_like_cookbook?: #{repo.looks_like_cookbook?}"
           Log.info "  fork?: #{repo.fork?}"
-          next unless !repo.fork? && repo.looks_like_cookbook?
+          next if repo.fork? || !repo.looks_like_cookbook?
 
           Log.info "  Cloned to #{repo.clone}"
 
