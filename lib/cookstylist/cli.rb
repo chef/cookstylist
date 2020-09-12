@@ -50,7 +50,7 @@ module Cookstylist
           Log.info "  fork?: #{repo.fork?}"
           next if repo.fork? || !repo.looks_like_cookbook?
 
-          Log.info "  Cloned to #{repo.clone}"
+          Log.debug "  Cloned to #{repo.clone}"
 
           Log.info "  Running Cookstyle against the local repo"
 
@@ -65,8 +65,9 @@ module Cookstylist
 
           next unless repo.dirty?
 
-          Log.info "  Opening pull request to upstream"
-          Cookstylist::Pullrequest.new(repo, corrector).open
+          Log.info "  Opening pull request to upstream & closing old PRs"
+          pr = Cookstylist::Pullrequest.new(repo, corrector)
+          pr.open && pr.close_existing
         end
       end
     end
