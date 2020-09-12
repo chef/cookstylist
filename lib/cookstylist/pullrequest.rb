@@ -8,6 +8,11 @@ module Cookstylist
       @gh_conn = Cookstylist::Github.instance.connection
     end
 
+    #
+    # Open the Cookstyle PR against the repo
+    #
+    # @return [void]
+    #
     def open
       commit_changes
 
