@@ -1,0 +1,6 @@
+Some things to do that would make this much better:
+
+- Running cookstyle should be multithreaded
+- We should skip the repo based on the branch before cloning it locally since that is super time consuming
+- Add debug logging
+- Document the private key usage / throw helpful errors if it's not there
