@@ -46,8 +46,8 @@ module Cookstylist
         installation.repos.each do |repo_data|
           repo = Cookstylist::Repo.new(repo_data)
           Log.info "#{repo_data[:full_name]}:"
-          Log.info "  looks_like_cookbook?: #{repo.looks_like_cookbook?}"
-          Log.info "  fork?: #{repo.fork?}"
+          Log.debug "  looks_like_cookbook?: #{repo.looks_like_cookbook?}"
+          Log.debug "  fork?: #{repo.fork?}"
           next if repo.fork? || !repo.looks_like_cookbook?
 
           Log.debug "  Cloned to #{repo.clone}"
