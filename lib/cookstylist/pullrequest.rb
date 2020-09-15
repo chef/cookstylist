@@ -79,11 +79,12 @@ module Cookstylist
           "  - **#{x["file_path"]}:#{x["location"]["start_line"]}**: #{x["message"]}" if x["corrected"]
         end
 
-        commit_msg << "#{cop_name}\n#{file_descriptions.join("\n")}\n" unless file_descriptions.empty?
+        commit_msg << "### #{cop_name}\n#{file_descriptions.join("\n")}\n\n" unless file_descriptions.empty?
       end
 
       commit_msg << "\nSigned-off-by: Cookstyle <cookbooks@chef.io>"
 
+      Log.debug("Commit message:\n #{commit_msg}")
       commit_msg
     end
   end
