@@ -26,7 +26,10 @@ module Cookstylist
       cmd.run_command
 
       # rubocop will error out on old configs a lot so ignore the config if we fail
-      if cmd.error?
+      # we can't call .error? because rubocop will throw a exit code of 1 if there's something that can still be autocorrected
+      # which results in a lot of false positives
+      unless cmd.stderr.nil? || cmd.stderr.empty?
+        # @todo: We need to reset the repo at this point
         cmd = Mixlib::ShellOut.new("cookstyle --format json --force-default-config -a --except ChefCorrectness/MetadataMissingName #{@path}")
         cmd.run_command
       end
