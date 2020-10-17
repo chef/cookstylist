@@ -20,7 +20,8 @@ Gem::Specification.new do |s|
   s.add_dependency "mixlib-config", "~> 3.0"
   s.add_dependency "cookstyle", ">= 6.16"
 
-  s.files         = `git ls-files -z`.split("\x0")
+  s.files         = %w{Gemfile LICENSE cookstylist.gemspec} +
+    Dir.glob("{bin,lib}/**/*", File::FNM_DOTMATCH).reject { |f| File.directory?(f) }
   s.executables   = "bin/cookstylist"
   s.require_paths = ["lib"]
 end
