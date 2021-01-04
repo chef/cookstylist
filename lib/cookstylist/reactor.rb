@@ -14,8 +14,8 @@ module Cookstylist
     #   return halt 500, "Signatures didn't match!" unless Rack::Utils.secure_compare(check_signature, request_signature)
     #end
 
-    set :bind, "0.0.0.0"
-    set :port, 8080
+    set :bind, ENV['BIND_IP'] || "0.0.0.0"
+    set :port, ENV['BIND_PORT'] || 8080
 
     set(:event_type) do |type|
       condition { request.env["HTTP_X_GITHUB_EVENT"] == type }
