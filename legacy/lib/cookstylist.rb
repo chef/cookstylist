@@ -1,14 +1,12 @@
 require "mixlib/log"
 require "mixlib/config" unless defined?(Mixlib::Config)
-require_relative "cookstylist/corrector"
+
+require_relative "cookstylist/cli"
 require_relative "cookstylist/github"
 require_relative "cookstylist/installation"
-require_relative "cookstylist/worker"
-require_relative "cookstylist/periodic"
-require_relative "cookstylist/pullrequest"
-require_relative "cookstylist/reactor"
 require_relative "cookstylist/repo"
-require_relative "cookstylist/worker"
+require_relative "cookstylist/corrector"
+require_relative "cookstylist/pullrequest"
 
 module Cookstylist
   class Log

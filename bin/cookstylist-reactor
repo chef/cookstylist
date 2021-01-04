@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+# load the libs
+$LOAD_PATH.unshift(File.join(__dir__, "..", "lib"))
+
+require "cookstylist"
+
+Cookstylist::Reactor.run!
