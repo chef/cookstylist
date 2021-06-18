@@ -28,6 +28,14 @@ module Cookstylist
     end
 
     #
+    # @return [Boolean] Is the repo archived?
+    #
+    def archived?
+      @metadata[:archived]
+    end
+
+
+    #
     # @return [Boolean] Does the repo have a metadata.rb file?
     #
     def looks_like_cookbook?
