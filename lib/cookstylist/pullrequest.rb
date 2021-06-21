@@ -54,7 +54,7 @@ module Cookstylist
 
     def commit_changes
       r = Git.open(@repo.local_path)
-      r.config("user.name", "Cookstyle Bot")
+      r.config("user.name", "Cookstyle")
       r.config("user.email", "cookbooks@chef.io")
 
       r.commit_all("#{commit_title}\n#{commit_description}")
