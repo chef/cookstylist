@@ -46,10 +46,10 @@ module Cookstylist
         installation.repos.each do |repo_data|
           repo = Cookstylist::Repo.new(repo_data)
           Log.info "#{repo_data[:full_name]}:"
-          Log.debug "  looks_like_cookbook?: #{repo.looks_like_cookbook?}"
+          Log.debug "  has_cookstyleable_content?: #{repo.has_cookstyleable_content?}"
           Log.debug "  fork?: #{repo.fork?}"
           Log.debug "  archived?: #{repo.archived?}"
-          next if repo.fork? || repo.archived? || !repo.looks_like_cookbook?
+          next if repo.fork? || repo.archived? || !repo.has_cookstyleable_content?
 
           Log.debug "  Cloned to #{repo.clone}"
 

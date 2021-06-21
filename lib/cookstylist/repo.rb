@@ -34,12 +34,13 @@ module Cookstylist
       @metadata[:archived]
     end
 
-
     #
-    # @return [Boolean] Does the repo have a metadata.rb file?
+    # @return [Boolean] Does the repo have a metadata.rb file anywhere or a inspec.yml file at the root?
     #
-    def looks_like_cookbook?
-      @gh_conn.contents(@name).any? { |x| x["name"] == "metadata.rb" }
+    def has_cookstyleable_content?
+      @gh_conn.contents(@name).any? do |x|
+        x["name"] == "metadata.rb" || (x["name"] == "inspec.yml" && x["path"] == "inspec.yml")
+      end
     end
 
     #
